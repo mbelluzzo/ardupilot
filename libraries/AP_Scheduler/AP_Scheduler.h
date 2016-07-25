@@ -47,7 +47,6 @@
  */
 
 #include <AP_HAL/AP_HAL.h>
-#include <AP_Vehicle/AP_Vehicle.h>
 
 class AP_Scheduler
 {
