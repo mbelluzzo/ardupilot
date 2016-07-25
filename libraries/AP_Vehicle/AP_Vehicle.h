@@ -19,6 +19,7 @@
   parameters needed by multiple libraries
  */
 
+#include <AP_Notify/AP_Notify.h>
 #include <AP_Param/AP_Param.h>
 #include <AP_Scheduler/AP_Scheduler.h>
 
@@ -54,8 +55,11 @@ public:
     };
 
 protected:
+    AP_Notify notify;       // notification object (for LED, buzzers etc)
     AP_Scheduler scheduler; // main loop scheduler
+
 public:
+    void update_notify(void);
 };
 
 

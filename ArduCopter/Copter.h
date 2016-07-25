@@ -77,7 +77,6 @@
 #include <AC_Fence/AC_Fence.h>           // Arducopter Fence library
 #include <AC_Avoidance/AC_Avoid.h>           // Arducopter stop at fence library
 #include <AP_RCMapper/AP_RCMapper.h>        // RC input mapping library
-#include <AP_Notify/AP_Notify.h>          // Notify library
 #include <AP_BattMonitor/AP_BattMonitor.h>     // Battery monitor library
 #include <AP_BoardConfig/AP_BoardConfig.h>     // board configuration library
 #include <AP_Frsky_Telem/AP_Frsky_Telem.h>
@@ -141,9 +140,6 @@ private:
     // Global parameters are all contained within the 'g' class.
     Parameters g;
     ParametersG2 g2;
-
-    // AP_Notify instance
-    AP_Notify notify;
 
     // used to detect MAVLink acks from GCS to stop compassmot
     uint8_t command_ack_counter;
@@ -906,7 +902,6 @@ private:
     void update_ground_effect_detector(void);
 #endif // GNDEFFECT_COMPENSATION == ENABLED
     void landinggear_update();
-    void update_notify();
     void motor_test_output();
     bool mavlink_motor_test_check(mavlink_channel_t chan, bool check_rc);
     uint8_t mavlink_motor_test_start(mavlink_channel_t chan, uint8_t motor_seq, uint8_t throttle_type, uint16_t throttle_value, float timeout_sec);

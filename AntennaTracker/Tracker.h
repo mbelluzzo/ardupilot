@@ -54,7 +54,6 @@
 #include <AP_Mission/AP_Mission.h>
 #include <AP_Terrain/AP_Terrain.h>
 #include <AP_Rally/AP_Rally.h>
-#include <AP_Notify/AP_Notify.h>      // Notify library
 #include <AP_BattMonitor/AP_BattMonitor.h> // Battery monitor library
 #include <AP_Airspeed/AP_Airspeed.h>
 #include <RC_Channel/RC_Channel.h>
@@ -86,9 +85,6 @@ public:
 
 private:
     Parameters g;
-
-    // notification object for LEDs, buzzers etc
-    AP_Notify notify;
 
     uint32_t start_time_ms = 0;
 
@@ -220,7 +216,6 @@ private:
     void update_yaw_cr_servo(float yaw);
     void update_yaw_onoff_servo(float yaw);
     void init_tracker();
-    void update_notify();
     bool get_home_eeprom(struct Location &loc);
     void set_home_eeprom(struct Location temp);
     void set_home(struct Location temp);

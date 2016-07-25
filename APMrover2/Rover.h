@@ -67,7 +67,6 @@
 #include <AP_Arming/AP_Arming.h>
 #include "compat.h"
 
-#include <AP_Notify/AP_Notify.h>      // Notify library
 #include <AP_BattMonitor/AP_BattMonitor.h> // Battery monitor library
 #include <AP_OpticalFlow/AP_OpticalFlow.h>     // Optical Flow library
 #include <AP_RSSI/AP_RSSI.h>                   // RSSI Library
@@ -224,9 +223,6 @@ private:
         uint8_t triggered;
         uint32_t last_valid_rc_ms;
     } failsafe;
-
-    // notification object for LEDs, buzzers etc (parameter set to false disables external leds)
-    AP_Notify notify;
 
     // A counter used to count down valid gps fixes to allow the gps estimate to settle
     // before recording our home position (and executing a ground start if we booted with an air start)
@@ -488,7 +484,6 @@ private:
     bool mavlink_set_mode(uint8_t mode);
     void failsafe_trigger(uint8_t failsafe_type, bool on);
     void startup_INS_ground(void);
-    void update_notify();
     void resetPerfData(void);
     void check_usb_mux(void);
     uint8_t check_digital_pin(uint8_t pin);

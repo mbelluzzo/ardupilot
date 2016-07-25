@@ -73,7 +73,6 @@
 #include <AP_NavEKF2/AP_NavEKF2.h>
 #include <AP_Mission/AP_Mission.h>     // Mission command library
 
-#include <AP_Notify/AP_Notify.h>      // Notify library
 #include <AP_BattMonitor/AP_BattMonitor.h> // Battery monitor library
 
 #include <AP_Arming/AP_Arming.h>
@@ -161,9 +160,6 @@ private:
     RC_Channel *channel_pitch;
     RC_Channel *channel_throttle;
     RC_Channel *channel_rudder;
-
-    // notification object for LEDs, buzzers etc (parameter set to false disables external leds)
-    AP_Notify notify;
 
     DataFlash_Class DataFlash;
 
@@ -973,7 +969,6 @@ private:
     void check_long_failsafe();
     void check_short_failsafe();
     void startup_INS_ground(void);
-    void update_notify();
     void resetPerfData(void);
     void check_usb_mux(void);
     void print_comma(void);
