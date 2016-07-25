@@ -20,6 +20,7 @@
  */
 
 #include <AP_Param/AP_Param.h>
+#include <AP_Scheduler/AP_Scheduler.h>
 
 class AP_Vehicle : public AP_HAL::HAL::Callbacks {
 
@@ -51,6 +52,9 @@ public:
     struct MultiCopter {
         AP_Int16 angle_max;
     };
+
+protected:
+    AP_Scheduler scheduler; // main loop scheduler
 };
 
 

@@ -76,7 +76,6 @@
 #include <AP_Declination/AP_Declination.h>     // ArduPilot Mega Declination Helper Library
 #include <AC_Fence/AC_Fence.h>           // Arducopter Fence library
 #include <AC_Avoidance/AC_Avoid.h>           // Arducopter stop at fence library
-#include <AP_Scheduler/AP_Scheduler.h>       // main loop scheduler
 #include <AP_RCMapper/AP_RCMapper.h>        // RC input mapping library
 #include <AP_Notify/AP_Notify.h>          // Notify library
 #include <AP_BattMonitor/AP_BattMonitor.h>     // Battery monitor library
@@ -135,7 +134,6 @@ private:
     // key aircraft parameters passed to multiple libraries
     AP_Vehicle::MultiCopter aparm;
 
-
     // cliSerial isn't strictly necessary - it is an alias for hal.console. It may
     // be deprecated in favor of hal.console in later releases.
     AP_HAL::BetterStream* cliSerial;
@@ -143,9 +141,6 @@ private:
     // Global parameters are all contained within the 'g' class.
     Parameters g;
     ParametersG2 g2;
-
-    // main loop scheduler
-    AP_Scheduler scheduler;
 
     // AP_Notify instance
     AP_Notify notify;

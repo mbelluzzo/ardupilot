@@ -61,7 +61,6 @@
 #include <AP_Mount/AP_Mount.h>           // Camera/Antenna mount
 #include <AP_Declination/AP_Declination.h> // ArduPilot Mega Declination Helper Library
 #include <DataFlash/DataFlash.h>
-#include <AP_Scheduler/AP_Scheduler.h>       // main loop scheduler
 
 #include <AP_Navigation/AP_Navigation.h>
 #include <AP_L1_Control/AP_L1_Control.h>
@@ -151,9 +150,6 @@ private:
     Parameters g;
     ParametersG2 g2;
 
-    // main loop scheduler
-    AP_Scheduler scheduler;
- 
     // mapping between input channels
     RCMapper rcmap;
 

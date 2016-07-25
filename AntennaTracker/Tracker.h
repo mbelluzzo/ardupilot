@@ -47,7 +47,6 @@
 #include <AP_Declination/AP_Declination.h> // ArduPilot Mega Declination Helper Library
 #include <DataFlash/DataFlash.h>
 #include <AC_PID/AC_PID.h>
-#include <AP_Scheduler/AP_Scheduler.h>       // main loop scheduler
 #include <AP_NavEKF/AP_NavEKF.h>
 #include <AP_NavEKF2/AP_NavEKF2.h>
 
@@ -88,9 +87,6 @@ public:
 private:
     Parameters g;
 
-    // main loop scheduler
-    AP_Scheduler scheduler;
- 
     // notification object for LEDs, buzzers etc
     AP_Notify notify;
 

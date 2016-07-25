@@ -57,7 +57,6 @@
 #include <AP_Vehicle/AP_Vehicle.h>     // needed for AHRS build
 #include <DataFlash/DataFlash.h>
 #include <AP_RCMapper/AP_RCMapper.h>        // RC input mapping library
-#include <AP_Scheduler/AP_Scheduler.h>       // main loop scheduler
 #include <stdarg.h>
 #include <AP_Navigation/AP_Navigation.h>
 #include <APM_Control/APM_Control.h>
@@ -110,9 +109,6 @@ private:
 
     // all settable parameters
     Parameters g;
-
-    // main loop scheduler
-    AP_Scheduler scheduler;
 
     // mapping between input channels
     RCMapper rcmap;
