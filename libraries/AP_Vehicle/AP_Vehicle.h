@@ -55,6 +55,7 @@ public:
 
 protected:
     AP_Scheduler scheduler; // main loop scheduler
+public:
 };
 
 
