@@ -21,7 +21,7 @@
 
 #include <AP_Param/AP_Param.h>
 
-class AP_Vehicle {
+class AP_Vehicle : public AP_HAL::HAL::Callbacks {
 
 public:
     /*

@@ -88,7 +88,7 @@
 #include <SITL/SITL.h>
 #endif
 
-class Rover : public AP_HAL::HAL::Callbacks {
+class Rover : public AP_Vehicle {
 public:
     friend class GCS_MAVLINK_Rover;
     friend class Parameters;

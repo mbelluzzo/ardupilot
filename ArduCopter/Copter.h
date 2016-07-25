@@ -119,7 +119,7 @@
 #include <SITL/SITL.h>
 #endif
 
-class Copter : public AP_HAL::HAL::Callbacks {
+class Copter : public AP_Vehicle {
 public:
     friend class GCS_MAVLINK_Copter;
     friend class AP_Rally_Copter;
