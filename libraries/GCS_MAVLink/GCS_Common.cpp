@@ -891,57 +891,64 @@ GCS_MAVLINK::handle_gps_inject(const mavlink_message_t *msg, AP_GPS &gps)
 
 }
 
-// send a message using mavlink, handling message queueing
-void GCS_MAVLINK::send_message(enum ap_message id)
+void GCS_MAVLINK::flush_message_queue(void)
 {
-    uint8_t i, nextid;
-
-    if (id == MSG_HEARTBEAT) {
-        save_signing_timestamp(false);
-    }
-    
-    // see if we can send the deferred messages, if any
-    while (num_deferred_messages != 0) {
+    // Try to flush the message queue as much as possible
+    while (num_deferred_messages) {
         if (!try_send_message(deferred_messages[next_deferred_message])) {
             break;
         }
-        next_deferred_message++;
-        if (next_deferred_message == MSG_QUEUE_SIZE) {
+
+        if (++next_deferred_message == MSG_QUEUE_SIZE) {
             next_deferred_message = 0;
         }
         num_deferred_messages--;
     }
+}
+
+// send a message using mavlink, "handling" message queueing
+void GCS_MAVLINK::send_message(enum ap_message id)
+{
+    uint8_t i, nextmsg;
+    bool queued = false;
+
+    flush_message_queue();
 
     if (id == MSG_RETRY_DEFERRED) {
         return;
     }
 
-    // this message id might already be deferred
-    for (i=0, nextid = next_deferred_message; i < num_deferred_messages; i++) {
-        if (deferred_messages[nextid] == id) {
-            // its already deferred, discard
+    // Why can't this be done at the sending moment?
+    // In the send_heartbeat method?
+    if (id == MSG_HEARTBEAT) {
+        save_signing_timestamp(false);
+    }
+
+    // If full, there is nothing we can do but discard the message. :(
+    if (num_deferred_messages == MSG_QUEUE_SIZE) {
+        return;
+    }
+
+    // We only keep one entry for each ID in the queue, check that.
+    // This is good to avoid a given message to flood the array.
+    // This is bad from the ordering point of view.
+    for (i = 0, nextmsg = next_deferred_message; i < num_deferred_messages; i++) {
+        if (deferred_messages[nextmsg] == id) {
+            // Already queued, move on.
             return;
         }
-        nextid++;
-        if (nextid == MSG_QUEUE_SIZE) {
-            nextid = 0;
+
+        if (++nextmsg == MSG_QUEUE_SIZE) {
+            nextmsg = 0;
         }
     }
 
-    if (num_deferred_messages != 0 ||
-        !try_send_message(id)) {
-        // can't send it now, so defer it
-        if (num_deferred_messages == MSG_QUEUE_SIZE) {
-            // the defer buffer is full, discard
-            return;
-        }
-        nextid = next_deferred_message + num_deferred_messages;
-        if (nextid >= MSG_QUEUE_SIZE) {
-            nextid -= MSG_QUEUE_SIZE;
-        }
-        deferred_messages[nextid] = id;
-        num_deferred_messages++;
+    nextmsg = next_deferred_message + num_deferred_messages;
+    if (nextmsg >= MSG_QUEUE_SIZE) {
+        nextmsg -= MSG_QUEUE_SIZE;
     }
+    deferred_messages[nextmsg] = id;
+    num_deferred_messages++;
 }
 
 void GCS_MAVLINK::packetReceived(const mavlink_status_t &status,

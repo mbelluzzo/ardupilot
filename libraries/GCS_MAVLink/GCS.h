@@ -403,4 +403,5 @@ private:
     void load_signing_key(void);
     bool signing_enabled(void) const;
     static void save_signing_timestamp(bool force_save_now);
+    void flush_message_queue(void);
 };
